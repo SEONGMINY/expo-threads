@@ -1,0 +1,9 @@
+{
+  "loginPageTitle": "How would you like to use Threads?",
+  "instagramLoginText": "Continue with Instagram",
+  "instagramLoginDescription": "Login or create a THreads profile with your Instagram account. With a profile, you can post, interact and get personalised recommendations.",
+  "googleLoginText": "Continue with Google",
+  "useWithoutProfileText": "Use without a profile",
+  "useWithoutProfileDescription": "You can use Threads without a profile, but you won't be able to post, interact or get personalised recommendations.",
+  "switchAccountsText": "Switch accounts"
+}
