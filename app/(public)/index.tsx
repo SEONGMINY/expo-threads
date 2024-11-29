@@ -11,9 +11,13 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import useI18n from "@/i18n/hooks/useI18n";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
 const Index = () => {
   const { t } = useI18n();
+
+  const data = useQuery(api.users.getAllUsers);
 
   const { startOAuthFlow: startFacebookOAuthFlow } = useOAuth({
     strategy: "oauth_facebook",
@@ -46,6 +50,8 @@ const Index = () => {
       console.error("OAuth error", err);
     }
   };
+
+  console.log(data);
 
   return (
     <View style={styles.container}>
