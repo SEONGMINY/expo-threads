@@ -10,10 +10,15 @@ import {
   DMSans_700Bold,
   useFonts,
 } from "@expo-google-fonts/dm-sans";
+import { ConvexProvider, ConvexReactClient } from "convex/react";
 import { Slot, SplashScreen } from "expo-router";
 import React, { useEffect, useState } from "react";
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
+
+const convex = new ConvexReactClient(process.env.EXPO_PUBLIC_CONVEX_URL!, {
+  unsavedChangesWarning: false,
+});
 
 if (!publishableKey) {
   throw new Error(
@@ -48,9 +53,11 @@ export default function RootLayout() {
   return (
     <ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
       <ClerkLoaded>
-        <I18nStoreContextProvider value={locale}>
-          <Slot />
-        </I18nStoreContextProvider>
+        <ConvexProvider client={convex}>
+          <I18nStoreContextProvider value={locale}>
+            <Slot />
+          </I18nStoreContextProvider>
+        </ConvexProvider>
       </ClerkLoaded>
     </ClerkProvider>
   );
