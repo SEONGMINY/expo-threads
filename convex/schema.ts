@@ -34,6 +34,9 @@ export const Message = {
   websiteUrl: v.optional(v.string()),
 };
 
+/**
+ * dashboard.convex.dev 에서 스키마 확인 가능
+ */
 export default defineSchema({
   users: defineTable(User),
   messages: defineTable(Message),
