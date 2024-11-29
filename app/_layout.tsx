@@ -1,18 +1,19 @@
-import { DEFAULT_LANGUAGE } from "@/i18n/constants/locale";
-import { I18nStoreContextProvider } from "@/i18n/hooks/useI18nContext";
-import { SupportLanguage } from "@/i18n/types";
-import { getLocale } from "@/i18n/utils/locale";
-import { tokenCache } from "@/utils/cache";
-import { ClerkLoaded, ClerkProvider } from "@clerk/clerk-expo";
+import React, { useEffect, useState } from "react";
 import {
   DMSans_400Regular,
   DMSans_500Medium,
   DMSans_700Bold,
   useFonts,
 } from "@expo-google-fonts/dm-sans";
-import { ConvexProvider, ConvexReactClient } from "convex/react";
 import { Slot, SplashScreen } from "expo-router";
-import React, { useEffect, useState } from "react";
+import { ClerkLoaded, ClerkProvider, useAuth } from "@clerk/clerk-expo";
+import { ConvexReactClient } from "convex/react";
+import { ConvexProviderWithClerk } from "convex/react-clerk";
+import { DEFAULT_LANGUAGE } from "@/i18n/constants/locale";
+import { I18nStoreContextProvider } from "@/i18n/hooks/useI18nContext";
+import { SupportLanguage } from "@/i18n/types";
+import { getLocale } from "@/i18n/utils/locale";
+import { tokenCache } from "@/utils/cache";
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
 
@@ -53,11 +54,11 @@ export default function RootLayout() {
   return (
     <ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
       <ClerkLoaded>
-        <ConvexProvider client={convex}>
+        <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
           <I18nStoreContextProvider value={locale}>
             <Slot />
           </I18nStoreContextProvider>
-        </ConvexProvider>
+        </ConvexProviderWithClerk>
       </ClerkLoaded>
     </ClerkProvider>
   );
