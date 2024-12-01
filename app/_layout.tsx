@@ -14,8 +14,10 @@ import { I18nStoreContextProvider } from "@/i18n/hooks/useI18nContext";
 import { SupportLanguage } from "@/i18n/types";
 import { getLocale } from "@/i18n/utils/locale";
 import { tokenCache } from "@/utils/cache";
+import { LogBox } from "react-native";
 
 const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
+LogBox.ignoreLogs(["Clerk: Clerk has been loaded with development keys"]);
 
 const convex = new ConvexReactClient(process.env.EXPO_PUBLIC_CONVEX_URL!, {
   unsavedChangesWarning: false,
@@ -27,14 +29,24 @@ if (!publishableKey) {
   );
 }
 
-export default function RootLayout() {
-  const [locale, setLocale] = useState<SupportLanguage>(DEFAULT_LANGUAGE);
-
+const InitialLayout = () => {
   const [isFontsLoaded] = useFonts({
     DMSans_400Regular,
     DMSans_500Medium,
     DMSans_700Bold,
   });
+
+  useEffect(() => {
+    if (isFontsLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [isFontsLoaded]);
+
+  return <Slot />;
+};
+
+export default function RootLayout() {
+  const [locale, setLocale] = useState<SupportLanguage>(DEFAULT_LANGUAGE);
 
   const fetchLocale = async () => {
     const locale = await getLocale();
@@ -45,18 +57,12 @@ export default function RootLayout() {
     fetchLocale();
   }, []);
 
-  useEffect(() => {
-    if (isFontsLoaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [isFontsLoaded]);
-
   return (
     <ClerkProvider publishableKey={publishableKey} tokenCache={tokenCache}>
       <ClerkLoaded>
         <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
           <I18nStoreContextProvider value={locale}>
-            <Slot />
+            <InitialLayout />
           </I18nStoreContextProvider>
         </ConvexProviderWithClerk>
       </ClerkLoaded>
