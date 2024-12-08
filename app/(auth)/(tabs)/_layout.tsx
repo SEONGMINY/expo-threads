@@ -1,11 +1,12 @@
 import { Colors } from "@/constants/Colors";
 import { useAuth } from "@clerk/clerk-expo";
 import { Ionicons } from "@expo/vector-icons";
-import { Tabs } from "expo-router";
+import { Tabs, useRouter } from "expo-router";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function TabLayout() {
   const { signOut } = useAuth();
+  const router = useRouter();
 
   return (
     <Tabs
@@ -56,6 +57,12 @@ export default function TabLayout() {
               <Ionicons name="add" size={size} color={color} />
             </View>
           ),
+        }}
+        listeners={{
+          tabPress: (e) => {
+            e.preventDefault();
+            router.push("/(auth)/(modal)/create");
+          },
         }}
       />
       <Tabs.Screen
