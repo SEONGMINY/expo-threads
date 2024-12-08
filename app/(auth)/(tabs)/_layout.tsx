@@ -1,9 +1,12 @@
 import { Colors } from "@/constants/Colors";
+import { useAuth } from "@clerk/clerk-expo";
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function TabLayout() {
+  const { signOut } = useAuth();
+
   return (
     <Tabs
       screenOptions={{
@@ -15,7 +18,6 @@ export default function TabLayout() {
         name="feed"
         options={{
           title: "Home",
-          headerShown: false,
           tabBarIcon: ({ color, size, focused }) => (
             <Ionicons
               name={focused ? "home" : "home-outline"}
@@ -23,6 +25,12 @@ export default function TabLayout() {
               color={color}
             />
           ),
+          headerRight: () => (
+            <TouchableOpacity onPress={() => signOut()}>
+              <Text style={styles.logoutText}>Log out</Text>
+            </TouchableOpacity>
+          ),
+          headerShown: false,
         }}
       />
       <Tabs.Screen
@@ -68,7 +76,6 @@ export default function TabLayout() {
         name="profile"
         options={{
           title: "Profile",
-          headerShown: false,
           tabBarIcon: ({ color, size, focused }) => (
             <Ionicons
               name={focused ? "person" : "person-outline"}
@@ -83,6 +90,10 @@ export default function TabLayout() {
 }
 
 const styles = StyleSheet.create({
+  logoutText: {
+    marginRight: 10,
+    color: "blue",
+  },
   createIconContainer: {
     backgroundColor: Colors.itemBackground,
     borderRadius: 8,
