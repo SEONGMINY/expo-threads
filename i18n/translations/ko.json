@@ -5,5 +5,13 @@
   "googleLoginText": "Google로 계속",
   "useWithoutProfileText": "프로필 없이 사용하기",
   "useWithoutProfileDescription": "프로필 없이 Threads를 사용할 수 있지만, 게시물 작성, 다른 사용자와의 소통 또는 추천을 받을 수는 없습니다.",
-  "switchAccountsText": "계정 전환"
+  "switchAccountsText": "계정 전환",
+  "emptyThreadsText": "아직 쓰레드 없음",
+  "profileEditButtonText": "프로필 편집",
+  "profileShareButtonText": "프로필 공유",
+  "userProfileFollowButtonText": "팔로우",
+  "userProfileMentionButtonText": "멘션",
+  "profileTabsThreadsText": "스레드",
+  "profileTabsRepliesText": "답글",
+  "profileTabsRepostsText": "리포스트"
 }

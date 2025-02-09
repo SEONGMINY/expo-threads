@@ -5,5 +5,13 @@
   "googleLoginText": "Continue with Google",
   "useWithoutProfileText": "Use without a profile",
   "useWithoutProfileDescription": "You can use Threads without a profile, but you won't be able to post, interact or get personalised recommendations.",
-  "switchAccountsText": "Switch accounts"
+  "switchAccountsText": "Switch accounts",
+  "emptyThreadsText": "No threads yet.",
+  "profileEditButtonText": "Edit Profile",
+  "profileShareButtonText": "Share Profile",
+  "userProfileFollowButtonText": "Follow",
+  "userProfileMentionButtonText": "Mention",
+  "profileTabsThreadsText": "Threads",
+  "profileTabsRepliesText": "Replies",
+  "profileTabsRepostsText": "Reposts"
 }
