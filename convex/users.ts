@@ -27,3 +27,15 @@ export const createUser = internalMutation({
     });
   },
 });
+
+export const getUserByClerkId = query({
+    args: {
+        clerkId: v.optional(v.string()),
+    },
+    handler: async (ctx, args) => {
+        return await ctx.db
+            .query("users")
+            .filter((q) => q.eq(q.field('clerkId'), args.clerkId))
+            .unique()
+    },
+})
